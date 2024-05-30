@@ -7,11 +7,8 @@
     "test": "echo \"No tests yet...\""
   },
   "dependencies": {
-    "@azure/cosmos": "^4.0.0",
     "@azure/functions": "^4.0.0"
   },
-  "main": "src/functions/*.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "devDependencies": {},
+  "main": "src/functions/*.js"
 }

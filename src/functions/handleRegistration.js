@@ -1,6 +1,5 @@
 const { CosmosClient } = require("@azure/cosmos");
 
-// Environment variables for Cosmos DB
 const endpoint = process.env.COSMOS_DB_ENDPOINT;
 const key = process.env.COSMOS_DB_KEY;
 const client = new CosmosClient({ endpoint, key });
