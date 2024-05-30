@@ -13,6 +13,6 @@
         "name": "res"
       }
     ],
-    "scriptFile": "src/functions/handleRegistration.js"
+    "scriptFile": "../src/functions/handleRegistration.js"
   }
   
