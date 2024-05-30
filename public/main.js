@@ -3,7 +3,7 @@ document.getElementById('pet-form').addEventListener('submit', async (event) => 
     const petName = document.getElementById('pet-name').value;
     const petType = document.getElementById('pet-type').value;
 
-    const response = await fetch('https://<your-api-endpoint>/pets', {
+    const response = await fetch('https://<your-function-app-name>.azurewebsites.net/api/handleRegistration?type=pet', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -19,7 +19,7 @@ document.getElementById('walker-form').addEventListener('submit', async (event) 
     const walkerName = document.getElementById('walker-name').value;
     const walkerPhone = document.getElementById('walker-phone').value;
 
-    const response = await fetch('https://<your-api-endpoint>/walkers', {
+    const response = await fetch('https://<your-function-app-name>.azurewebsites.net/api/handleRegistration?type=walker', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
