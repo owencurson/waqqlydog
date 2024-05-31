@@ -31,14 +31,14 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Build project
-        run: dotnet build "Untitled/Untitled.csproj"
+        run: dotnet build "./Untitled.csproj"
 
       - name: Publish project
-        run: dotnet publish "Untitled/Untitled.csproj" -c Release -o "Untitled/output"
+        run: dotnet publish "./Untitled.csproj" -c Release -o "./output"
 
       - name: 'Deploy to Azure Functions'
         uses: Azure/functions-action@v1
         with:
           app-name: 'waqqly-function'  # Your Function App name
-          package: 'Untitled/output'
+          package: './output'
           publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
