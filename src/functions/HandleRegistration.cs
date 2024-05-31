@@ -9,9 +9,8 @@ using System;
 
 public static class HandleRegistration
 {
-    private static readonly string endpoint = Environment.GetEnvironmentVariable("COSMOS_DB_ENDPOINT") ?? string.Empty;
-    private static readonly string key = Environment.GetEnvironmentVariable("COSMOS_DB_KEY") ?? string.Empty;
-    private static readonly CosmosClient client = new CosmosClient(endpoint, key);
+    private static readonly string connectionString = Environment.GetEnvironmentVariable("COSMOS_DB_CONNECTION_STRING") ?? string.Empty;
+    private static readonly CosmosClient client = new CosmosClient(connectionString);
 
     [Function("HandleRegistration")]
     public static async Task<HttpResponseData> Run(
