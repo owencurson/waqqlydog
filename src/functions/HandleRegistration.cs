@@ -1,17 +1,15 @@
 using System.IO;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Microsoft.Azure.Cosmos;
 using System.Threading.Tasks;
-using System;
 
 public static class HandleRegistration
 {
-    private static readonly string endpoint = Environment.GetEnvironmentVariable("COSMOS_DB_ENDPOINT");
-    private static readonly string key = Environment.GetEnvironmentVariable("COSMOS_DB_KEY");
+    private static readonly string endpoint = Environment.GetEnvironmentVariable("COSMOS_DB_ENDPOINT") ?? string.Empty;
+    private static readonly string key = Environment.GetEnvironmentVariable("COSMOS_DB_KEY") ?? string.Empty;
     private static readonly CosmosClient client = new CosmosClient(endpoint, key);
 
     [Function("HandleRegistration")]
@@ -23,8 +21,8 @@ public static class HandleRegistration
         logger.LogInformation("C# HTTP trigger function processed a request.");
 
         string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-        dynamic data = JsonConvert.DeserializeObject(requestBody);
-        string type = data?.type;
+        var data = JsonConvert.DeserializeObject<RequestData>(requestBody);
+        var type = data?.Type;
 
         var response = req.CreateResponse();
 
@@ -37,7 +35,7 @@ public static class HandleRegistration
 
         try
         {
-            dynamic responseMessage;
+            object responseMessage;
             if (type == "pet")
             {
                 responseMessage = await HandlePetRegistration(data);
@@ -66,7 +64,7 @@ public static class HandleRegistration
         }
     }
 
-    private static async Task<dynamic> HandlePetRegistration(dynamic body)
+    private static async Task<object> HandlePetRegistration(RequestData body)
     {
         var database = client.GetDatabase("waqqlydog");
         var container = database.GetContainer("pets");
@@ -74,15 +72,15 @@ public static class HandleRegistration
         var newItem = new
         {
             id = Guid.NewGuid().ToString(),
-            petName = (string)body.petName,
-            petType = (string)body.petType
+            petName = body.PetName,
+            petType = body.PetType
         };
 
         var response = await container.CreateItemAsync(newItem);
         return response.Resource;
     }
 
-    private static async Task<dynamic> HandleWalkerRegistration(dynamic body)
+    private static async Task<object> HandleWalkerRegistration(RequestData body)
     {
         var database = client.GetDatabase("waqqlydog");
         var container = database.GetContainer("walkers");
@@ -90,11 +88,20 @@ public static class HandleRegistration
         var newItem = new
         {
             id = Guid.NewGuid().ToString(),
-            walkerName = (string)body.walkerName,
-            walkerPhone = (string)body.walkerPhone
+            walkerName = body.WalkerName,
+            walkerPhone = body.WalkerPhone
         };
 
         var response = await container.CreateItemAsync(newItem);
         return response.Resource;
+    }
+
+    public class RequestData
+    {
+        public string? Type { get; set; }
+        public string? PetName { get; set; }
+        public string? PetType { get; set; }
+        public string? WalkerName { get; set; }
+        public string? WalkerPhone { get; set; }
     }
 }
