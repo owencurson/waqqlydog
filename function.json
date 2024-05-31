@@ -13,6 +13,6 @@
         "name": "res"
       }
     ],
-    "scriptFile": "index.js"
+    "scriptFile": "bin/HandleRegistration.dll"
   }
   
