@@ -1,31 +1,70 @@
-document.getElementById('pet-form').addEventListener('submit', async (event) => {
+document.getElementById('registerPetForm').addEventListener('submit', async function(event) {
     event.preventDefault();
-    const petName = document.getElementById('pet-name').value;
-    const petType = document.getElementById('pet-type').value;
+    const petName = document.getElementById('petName').value;
+    const petType = document.getElementById('petType').value;
 
-    const response = await fetch('https://<your-function-app-name>.azurewebsites.net/api/handleRegistration?type=pet', {
+    const response = await fetch('https://waqqly-function.azurewebsites.net/api/HandleRegistration', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ petName, petType })
+        body: JSON.stringify({ type: 'pet', petName: petName, petType: petType })
     });
-    const data = await response.json();
-    console.log(data);
+
+    if (response.ok) {
+        alert('Pet registered successfully!');
+        fetchPets();
+    } else {
+        alert('Error registering pet.');
+    }
 });
 
-document.getElementById('walker-form').addEventListener('submit', async (event) => {
+document.getElementById('registerWalkerForm').addEventListener('submit', async function(event) {
     event.preventDefault();
-    const walkerName = document.getElementById('walker-name').value;
-    const walkerPhone = document.getElementById('walker-phone').value;
+    const walkerName = document.getElementById('walkerName').value;
+    const walkerPhone = document.getElementById('walkerPhone').value;
 
-    const response = await fetch('https://<your-function-app-name>.azurewebsites.net/api/handleRegistration?type=walker', {
+    const response = await fetch('https://waqqly-function.azurewebsites.net/api/HandleRegistration', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ walkerName, walkerPhone })
+        body: JSON.stringify({ type: 'walker', walkerName: walkerName, walkerPhone: walkerPhone })
     });
-    const data = await response.json();
-    console.log(data);
+
+    if (response.ok) {
+        alert('Walker registered successfully!');
+        fetchWalkers();
+    } else {
+        alert('Error registering walker.');
+    }
+});
+
+async function fetchPets() {
+    const response = await fetch('https://waqqly-function.azurewebsites.net/api/GetRegisteredPets');
+    const pets = await response.json();
+    const petList = document.getElementById('petList');
+    petList.innerHTML = '';
+    pets.forEach(pet => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${pet.petName} (${pet.petType})`;
+        petList.appendChild(listItem);
+    });
+}
+
+async function fetchWalkers() {
+    const response = await fetch('https://waqqly-function.azurewebsites.net/api/GetRegisteredWalkers');
+    const walkers = await response.json();
+    const walkerList = document.getElementById('walkerList');
+    walkerList.innerHTML = '';
+    walkers.forEach(walker => {
+        const listItem = document.createElement('li');
+        listItem.textContent = `${walker.walkerName} (${walker.walkerPhone})`;
+        walkerList.appendChild(listItem);
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    fetchPets();
+    fetchWalkers();
 });
