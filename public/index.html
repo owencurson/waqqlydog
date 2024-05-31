@@ -29,6 +29,8 @@
                 <input type="text" id="walkerName" name="walkerName" required>
                 <label for="walkerPhone">Walker Phone:</label>
                 <input type="text" id="walkerPhone" name="walkerPhone" required>
+                <label for="walkerLocation">Walker Location:</label>
+                <input type="text" id="walkerLocation" name="walkerLocation" required>
                 <button type="submit">Register Walker</button>
             </form>
         </section>
@@ -42,6 +44,13 @@
             <h2>Registered Walkers</h2>
             <ul id="walkerList" class="result-box"></ul>
         </section>
+    </div>
+
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="modalDetails"></div>
+        </div>
     </div>
 
     <script src="main.js"></script>

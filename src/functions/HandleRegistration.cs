@@ -97,7 +97,8 @@ public static class HandleRegistration
         {
             id = Guid.NewGuid().ToString(),
             walkerName = body.WalkerName,
-            walkerPhone = body.WalkerPhone
+            walkerPhone = body.WalkerPhone,
+            walkerLocation = body.WalkerLocation
         };
 
         var response = await container.CreateItemAsync(newItem);
@@ -111,5 +112,8 @@ public static class HandleRegistration
         public string? PetType { get; set; }
         public string? WalkerName { get; set; }
         public string? WalkerPhone { get; set; }
+        public string? WalkerLocation { get; set; }
     }
 }
+
+           

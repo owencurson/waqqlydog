@@ -39,8 +39,9 @@ public static class GetRegisteredWalkers
 
     public class Walker
     {
-        public string id { get; set; }
-        public string walkerName { get; set; }
-        public string walkerPhone { get; set; }
+        public string id { get; set; } = Guid.NewGuid().ToString();
+        public string? walkerName { get; set; }
+        public string? walkerPhone { get; set; }
+        public string? walkerLocation { get; set; }
     }
 }
