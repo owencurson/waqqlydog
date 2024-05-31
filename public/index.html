@@ -5,29 +5,44 @@
     <link rel="stylesheet" type="text/css" href="main.css">
 </head>
 <body>
-    <h1>Register a Pet</h1>
-    <form id="registerPetForm">
-        <label for="petName">Pet Name:</label>
-        <input type="text" id="petName" name="petName" required>
-        <label for="petType">Pet Type:</label>
-        <input type="text" id="petType" name="petType" required>
-        <button type="submit">Register Pet</button>
-    </form>
+    <div class="container">
+        <header>
+            <h1>Waqq.ly</h1>
+            <p>Welcome to Waqq.ly! Here you can register your pets and find dog walkers in your area. Simply fill out the forms below to add a pet or a walker. The lists of registered pets and walkers will be displayed below.</p>
+        </header>
 
-    <h1>Register a Walker</h1>
-    <form id="registerWalkerForm">
-        <label for="walkerName">Walker Name:</label>
-        <input type="text" id="walkerName" name="walkerName" required>
-        <label for="walkerPhone">Walker Phone:</label>
-        <input type="text" id="walkerPhone" name="walkerPhone" required>
-        <button type="submit">Register Walker</button>
-    </form>
+        <section>
+            <h2>Register a Pet</h2>
+            <form id="registerPetForm">
+                <label for="petName">Pet Name:</label>
+                <input type="text" id="petName" name="petName" required>
+                <label for="petType">Pet Type:</label>
+                <input type="text" id="petType" name="petType" required>
+                <button type="submit">Register Pet</button>
+            </form>
+        </section>
 
-    <h2>Registered Pets</h2>
-    <ul id="petList"></ul>
+        <section>
+            <h2>Register a Walker</h2>
+            <form id="registerWalkerForm">
+                <label for="walkerName">Walker Name:</label>
+                <input type="text" id="walkerName" name="walkerName" required>
+                <label for="walkerPhone">Walker Phone:</label>
+                <input type="text" id="walkerPhone" name="walkerPhone" required>
+                <button type="submit">Register Walker</button>
+            </form>
+        </section>
 
-    <h2>Registered Walkers</h2>
-    <ul id="walkerList"></ul>
+        <section>
+            <h2>Registered Pets</h2>
+            <ul id="petList" class="result-box"></ul>
+        </section>
+
+        <section>
+            <h2>Registered Walkers</h2>
+            <ul id="walkerList" class="result-box"></ul>
+        </section>
+    </div>
 
     <script src="main.js"></script>
 </body>

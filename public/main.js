@@ -1,3 +1,25 @@
+document.getElementById('registerPetForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const petName = document.getElementById('petName').value;
+    const petType = document.getElementById('petType').value;
+
+    const response = await fetch('https://waqqly-function.azurewebsites.net/api/HandleRegistration', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ type: 'pet', petName: petName, petType: petType })
+    });
+
+    if (response.ok) {
+        alert('Pet registered successfully!');
+        fetchPets();
+        document.getElementById('registerPetForm').reset(); // Clear the form
+    } else {
+        alert('Error registering pet.');
+    }
+});
+
 document.getElementById('registerWalkerForm').addEventListener('submit', async function(event) {
     event.preventDefault();
     const walkerName = document.getElementById('walkerName').value;
