@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Microsoft.Azure.Cosmos;
 using System.Threading.Tasks;
+using System;
 
 public static class HandleRegistration
 {
@@ -22,7 +23,15 @@ public static class HandleRegistration
 
         string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
         var data = JsonConvert.DeserializeObject<RequestData>(requestBody);
-        var type = data?.Type;
+        
+        if (data == null)
+        {
+            var badResponse = req.CreateResponse(System.Net.HttpStatusCode.BadRequest);
+            await badResponse.WriteStringAsync("Invalid request body.");
+            return badResponse;
+        }
+
+        var type = data.Type;
 
         var response = req.CreateResponse();
 
