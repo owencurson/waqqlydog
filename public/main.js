@@ -73,7 +73,8 @@ function showDetails(...details) {
     const modal = document.getElementById('modal');
     const modalDetails = document.getElementById('modalDetails');
     modalDetails.innerHTML = details.map(detail => `<p>${detail}</p>`).join('');
-    modal.style.display = "block";
+    modal.classList.add('show');
+    document.querySelector('.modal-content').classList.add('show');
 }
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -85,11 +86,14 @@ const modal = document.getElementById('modal');
 const closeBtn = document.getElementsByClassName('close')[0];
 
 closeBtn.onclick = function() {
-    modal.style.display = "none";
+    modal.classList.remove('show');
+    document.querySelector('.modal-content').classList.remove('show');
 }
 
 window.onclick = function(event) {
     if (event.target == modal) {
-        modal.style.display = "none";
+        modal.classList.remove('show');
+        document.querySelector('.modal-content').classList.remove('show');
     }
 }
+
