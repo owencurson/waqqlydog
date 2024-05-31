@@ -2,13 +2,15 @@ document.getElementById('registerPetForm').addEventListener('submit', async func
     event.preventDefault();
     const petName = document.getElementById('petName').value;
     const petType = document.getElementById('petType').value;
+    const petPhone = document.getElementById('petPhone').value;
+    const petLocation = document.getElementById('petLocation').value;
 
     const response = await fetch('https://waqqly-function.azurewebsites.net/api/HandleRegistration', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ type: 'pet', petName: petName, petType: petType })
+        body: JSON.stringify({ type: 'pet', petName: petName, petType: petType, petPhone: petPhone, petLocation: petLocation })
     });
 
     if (response.ok) {
@@ -50,8 +52,8 @@ async function fetchPets() {
     petList.innerHTML = '';
     pets.forEach(pet => {
         const listItem = document.createElement('li');
-        listItem.textContent = `${pet.petName} (${pet.petType})`;
-        listItem.addEventListener('click', () => showDetails(pet.petName, pet.petType));
+        listItem.textContent = `${pet.petName}`;
+        listItem.addEventListener('click', () => showDetails(pet.petName, pet.petType, pet.petPhone, pet.petLocation));
         petList.appendChild(listItem);
     });
 }
@@ -96,4 +98,3 @@ window.onclick = function(event) {
         document.querySelector('.modal-content').classList.remove('show');
     }
 }
-

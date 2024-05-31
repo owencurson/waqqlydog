@@ -42,5 +42,7 @@ public static class GetRegisteredPets
         public string id { get; set; } = Guid.NewGuid().ToString();
         public string? petName { get; set; }
         public string? petType { get; set; }
+        public string? petPhone { get; set; }
+        public string? petLocation { get; set; }
     }
 }
